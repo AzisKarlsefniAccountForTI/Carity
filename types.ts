@@ -1,5 +1,5 @@
 
-export type SaverName = 'Azis Ganteng' | 'Siska Gemoy';
+export type SaverName = 'Azis Khoirul' | 'Siska Icha';
 
 export type AIAction = 'deposit' | 'vault_lock' | 'vault_release';
 

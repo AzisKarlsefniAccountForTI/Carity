@@ -8,7 +8,7 @@ export const parseSigmaCommand = async (input: string): Promise<AIResult | null>
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: `Kamu adalah Bahliljule, Protokol Keamanan AI untuk "Misi Menjadi Sigma". 
-    Tugasmu adalah memproses perintah keuangan dari Azis Ganteng atau Siska Gemoy.
+    Tugasmu adalah memproses perintah keuangan dari 'Azis Khoirul' atau 'Siska Icha'.
     
     Tentukan Aksi (action):
     1. 'deposit': Menambah tabungan donasi utama.
@@ -18,12 +18,14 @@ export const parseSigmaCommand = async (input: string): Promise<AIResult | null>
     Input User: "${input}"
     
     Aturan:
+    - Jika user menyebut "Azis", itu adalah 'Azis Khoirul'.
+    - Jika user menyebut "Siska", itu adalah 'Siska Icha'.
     - Jika user ingin "amankan", "kunci", "simpan di brankas", "proteksi", itu adalah 'vault_lock'.
     - Jika user ingin "keluarkan", "ambil dari brankas", "lepas", "unfreeze", itu adalah 'vault_release'.
     - Jika cuma "nabung", "setor", "tambah", itu adalah 'deposit'.
     - Ekstrak nominal uang (konversi 100rb ke 100000).
     - Ekstrak alasan (reason) jika untuk vault.
-    - Default saver: Azis Ganteng (jika maskulin/netral) atau Siska Gemoy (jika feminin).`,
+    - Default saver: 'Azis Khoirul' (jika netral) atau 'Siska Icha' (jika konteks perempuan).`,
     config: {
       responseMimeType: "application/json",
       responseSchema: {
@@ -35,7 +37,7 @@ export const parseSigmaCommand = async (input: string): Promise<AIResult | null>
           },
           saver: {
             type: Type.STRING,
-            enum: ['Azis Ganteng', 'Siska Gemoy']
+            enum: ['Azis Khoirul', 'Siska Icha']
           },
           amount: {
             type: Type.NUMBER
@@ -56,14 +58,12 @@ export const parseSigmaCommand = async (input: string): Promise<AIResult | null>
     }
   });
 
-  // Access text property directly and handle potential undefined value
   const text = response.text;
   if (!text) {
     return null;
   }
 
   try {
-    // Trim string before parsing as recommended
     return JSON.parse(text.trim()) as AIResult;
   } catch (error) {
     console.error("Bahliljule Command Error:", error);
