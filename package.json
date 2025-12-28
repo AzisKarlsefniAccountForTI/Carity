@@ -13,7 +13,9 @@
     "react-dom": "^19.2.3",
     "@google/genai": "^1.34.0",
     "lucide-react": "^0.562.0",
-    "recharts": "^3.6.0"
+    "recharts": "^3.6.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

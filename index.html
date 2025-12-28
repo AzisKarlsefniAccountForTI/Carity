@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sigma Charity - Tabungan Donasi 2026</title>
+    <title>Sigma Charity - Secure Donation 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -23,7 +23,6 @@
         }
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         
-        /* Subtle Neural Grid */
         .neural-grid {
             background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
@@ -31,49 +30,65 @@
             mask-image: radial-gradient(circle at center, black, transparent 90%);
         }
 
-        /* Refined Glassmorphism - Pronounced Frosted Glass */
+        /* Enhanced Glassmorphism v5 */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.7); /* Increased opacity for legibility */
-            backdrop-filter: blur(28px); /* Increased blur radius */
-            -webkit-backdrop-filter: blur(28px);
-            border: 1px solid rgba(255, 255, 255, 0.12); /* Slightly more pronounced border */
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                        box-shadow 0.4s ease, 
-                        border-color 0.4s ease, 
-                        background-color 0.4s ease;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .glass-panel:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 
-                        0 0 20px 0 rgba(99, 102, 241, 0.15);
-            border-color: rgba(255, 255, 255, 0.2);
-            background-color: rgba(20, 30, 55, 0.8);
+            transform: translateY(-8px);
+            background: rgba(20, 30, 55, 0.8);
+            border-color: rgba(99, 102, 241, 0.25);
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.9);
         }
 
-        @keyframes text-reveal {
-          from { filter: blur(8px); opacity: 0; transform: translateY(10px); }
-          to { filter: blur(0); opacity: 1; transform: translateY(0); }
+        .privacy-blur {
+            filter: blur(12px);
+            user-select: none;
+            pointer-events: none;
         }
-        .animate-reveal { animation: text-reveal 0.6s ease-out forwards; }
 
-        @keyframes status-pop {
-          0% { transform: scale(0.9); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
+        @keyframes pulse-sync {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.5; }
         }
-        .animate-status-pop { animation: status-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-
-        /* Hide Scrollbar */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Layout fixes for mobile overflows */
-        #root {
-            width: 100%;
-            overflow-x: hidden;
+        .sync-pulse {
             position: relative;
         }
+        .sync-pulse::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 999px;
+            background: currentColor;
+            animation: pulse-sync 2s infinite;
+        }
+
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in { animation: slide-in 0.5s ease-out forwards; }
+
+        .bottom-nav-container {
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 <script type="importmap">
 {
@@ -84,6 +99,8 @@
     "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
     "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
     "recharts": "https://esm.sh/recharts@^3.6.0",
+    "jspdf": "https://esm.sh/jspdf@^2.5.1",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@^3.8.2",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/"
   }
